@@ -96,14 +96,14 @@ class App extends Component
     }
     if(next_item.type == "image")
     {
-      ReactDOM.render(<ImageItem img_name={next_item.img}/>,document.getElementById("action_display"))
+      ReactDOM.render(<ImageItem user={next_item.user} img_name={next_item.img}/>,document.getElementById("action_display"))
       setTimeout(() => { this.getQueueItem();}, 15000);
       this.produceQueue();
     }
     else if(next_item.type == "yt-video")
     {
       var parent = React.createRef()
-      ReactDOM.render(<YTVideoItem vid_id={next_item.id} continue={this.getQueueItem}/>,document.getElementById("action_display"))
+      ReactDOM.render(<YTVideoItem user={next_item.user} vid_id={next_item.id} continue={this.getQueueItem}/>,document.getElementById("action_display"))
       this.produceQueue();
     }
     else if(next_item.type == "none")

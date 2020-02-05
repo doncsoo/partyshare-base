@@ -24,9 +24,8 @@ class YTVideoItem extends Component
 
         return(
             <div id="item">
+            <div id="sentby"><h4>Sent by: </h4> {this.props.user}</div>
             <YouTube videoId={this.props.vid_id} opts={opts} onStateChange={this.removeCheck}/>
-            <br></br>
-            <h1>{this.props.img_name}</h1>
             </div>
         )
     }

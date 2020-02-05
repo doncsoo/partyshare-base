@@ -26,6 +26,7 @@ class ImageItem extends Component
     {
         return(
             <div id="item">
+            <div id="sentby"><h4>Sent by: </h4> {this.props.user}</div>
             <div id="sent_img">
             <img id="img" src=""></img>
             </div>
