@@ -21,7 +21,7 @@ class App extends Component
 
   callAPI()
   {
-    fetch('ws://warm-reef-48121.herokuapp.com/new_room', {
+    fetch('https://warm-reef-48121.herokuapp.com/new_room', {
       method: 'POST'
     })
       .then(resp => resp.text())
@@ -66,7 +66,7 @@ class App extends Component
   {
     var queue_html = "Queue"
     console.log("Accessing queue... room num =" + this.state.room_number)
-    var queue_resp = await fetch('ws://warm-reef-48121.herokuapp.com/get_queue/' + this.state.room_number)
+    var queue_resp = await fetch('https://warm-reef-48121.herokuapp.com/get_queue/' + this.state.room_number)
       .then(resp => resp.json())
     for(var i = 0; i < queue_resp.length; i++)
     {
@@ -84,7 +84,7 @@ class App extends Component
 
   async getQueueItem()
   {
-    var next_item = await fetch('ws://warm-reef-48121.herokuapp.com/room_queue_item_pop/' + this.state.room_number,
+    var next_item = await fetch('https://warm-reef-48121.herokuapp.com/room_queue_item_pop/' + this.state.room_number,
     {
       method: 'POST'
     })
