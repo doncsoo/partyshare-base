@@ -64,8 +64,8 @@ class App extends Component
 
   async produceQueue()
   {
-    var queue_html = "Queue"
-    console.log("Accessing queue... room num =" + this.state.room_number)
+    var queue_html = "<h3>Queue</h3>"
+    if(this.state.room_number == -1) return
     var queue_resp = await fetch('https://warm-reef-48121.herokuapp.com/get_queue/' + this.state.room_number)
       .then(resp => resp.json())
     for(var i = 0; i < queue_resp.length; i++)
@@ -84,6 +84,11 @@ class App extends Component
 
   async getQueueItem()
   {
+    if(this.state.room_number == -1)
+    {
+      setTimeout(() => {  this.getQueueItem(); }, 500);
+      return
+    }
     var next_item = await fetch('https://warm-reef-48121.herokuapp.com/room_queue_item_pop/' + this.state.room_number,
     {
       method: 'POST'
