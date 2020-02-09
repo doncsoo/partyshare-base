@@ -8,7 +8,7 @@ class ImageItem extends Component
     getImageFromServer()
     {
         var imgselect = document.getElementById("img");
-        fetch('https://warm-reef-48121.herokuapp.com/get_image/' + this.props.img_name)
+        fetch('https://partyshare-server.herokuapp.com/get_image/' + this.props.img_name)
             .then(resp => resp.blob())
             .then(function(resp)
             {
