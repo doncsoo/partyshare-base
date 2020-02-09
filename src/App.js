@@ -72,11 +72,11 @@ class App extends Component
     {
       if(queue_resp[i].type == "image")
       {
-        queue_html += "<div id='queue_entry'><img src='" + image_icon + "'></img><h4>Image sent by " + queue_resp[i].user +"</h4></div>";
+        queue_html += "<div id='queue_entry'><img src='" + image_icon + "'></img><h4>Image sent by " + queue_resp[i].user +"</h4></div><br></br>";
       }
       else if(queue_resp[i].type == "yt-video")
       {
-        queue_html += "<div id='queue_entry'><img src='" + video_icon + "'></img><h4>Youtube Video by " + queue_resp[i].user +"</h4></div>";
+        queue_html += "<div id='queue_entry'><img src='" + video_icon + "'></img><h4>Youtube Video by " + queue_resp[i].user +"</h4></div><br></br>";
       }
     }
     document.getElementById("queue").innerHTML = queue_html
@@ -101,8 +101,7 @@ class App extends Component
     }
     if(next_item.type == "image")
     {
-      ReactDOM.render(<ImageItem user={next_item.user} img_name={next_item.img}/>,document.getElementById("action_display"))
-      setTimeout(() => { this.getQueueItem();}, 15000);
+      ReactDOM.render(<ImageItem user={next_item.user} img_name={next_item.img} continue={this.getQueueItem}/>,document.getElementById("action_display"))
       this.produceQueue();
     }
     else if(next_item.type == "yt-video")
