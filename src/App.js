@@ -32,13 +32,15 @@ class App extends Component
 
   componentDidMount()
   {
+    window.addEventListener("resize",this.checkDisplaySize)
     this.callAPI();
   }
 
   render()
-  {
+  { 
     return(
       <div>
+      <div id="main">
       <h1>
       PartyShare
       </h1>
@@ -53,7 +55,25 @@ class App extends Component
         </h3>
       </div>
       </div>
+      <div id="screenwarning">
+      <label>The display is too small.</label>
+      </div>
+      </div>
     )
+  }
+
+  checkDisplaySize()
+  {
+    if(window.innerWidth < 800 || window.innerHeight < 600)
+    {
+      document.getElementById("main").style.display = "none"
+      document.getElementById("screenwarning").style.display = "block"
+    }
+    else
+    {
+      document.getElementById("main").style.display = "block"
+      document.getElementById("screenwarning").style.display = "none"
+    }
   }
 
   callResp()
