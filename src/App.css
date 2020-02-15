@@ -37,6 +37,7 @@ h1, label, h3, h4{
 h4 {
   color: #ffffff;
   margin-bottom: 0;
+  text-align: right;
 }
 
 div#sentby {
@@ -74,7 +75,8 @@ div#action_display {
 
 div#queue_entry
 {
-  padding-top: 25px;
+  display: flex;
+  align-items:center;
 }
 
 div#queue {
@@ -85,7 +87,7 @@ div#queue {
   background-image:url('first.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: 100% 100%;
 }
 
 button#menu_button {

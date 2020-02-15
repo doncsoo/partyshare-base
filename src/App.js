@@ -5,7 +5,7 @@ import ImageItem from './imageitem';
 import YTVideoItem from './ytvideoitem';
 import bg from './video/bg_loop.mp4';
 import logo from './partysharelogo.png';
-import qr from './qrcode.png';
+import QRCode from 'qrcode.react';
 
 import image_icon from './image.png'
 import video_icon from './videologo.png'
@@ -45,7 +45,6 @@ class App extends Component
       .then(setTimeout(() => {  this.callResp(); }, 500))
       .then(setTimeout(() => {this.getQueueItem();}, 500))
     localStorage.setItem("RoomNumber",this.state.room_number)
-    document.getElementById("rid").innerHTML = "Room number: " + this.state.room_number
   }
 
   componentDidMount()
@@ -118,7 +117,7 @@ class App extends Component
       }
       else if(queue_resp[i].type == "yt-video")
       {
-        queue_html += "<div id='queue_entry'><img src='" + video_icon + "'></img><h4>Youtube Video by " + queue_resp[i].user +"</h4></div><br></br>";
+        queue_html += "<div id='queue_entry'><img src='" + video_icon + "'></img><h4 id='q_text'>Youtube Video by " + queue_resp[i].user +"</h4></div><br></br>";
       }
     }
     document.getElementById("queue").innerHTML = queue_html
@@ -154,9 +153,10 @@ class App extends Component
     }
     else if(next_item.type == "none")
     {
+      var str = 'https://partyshare-client.herokuapp.com/room/?rid='+this.state.room_number;
       var no_item_html = 
       <div id="item">
-      <img width="300" height="300" src={qr} alt="Logo"></img>
+      <QRCode value={str} />
       <h1>Upload your stuff now at <b>partyshare-client.herokuapp.com</b>!</h1>
       </div>
       ReactDOM.render(no_item_html,document.getElementById("action_display"))
