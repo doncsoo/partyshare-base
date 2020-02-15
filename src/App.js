@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './App.css'
 import ImageItem from './imageitem';
 import YTVideoItem from './ytvideoitem';
+import bg from './video/bg_loop.mp4';
+import logo from './partysharelogo.png';
+import qr from './qrcode.png';
 
 import image_icon from './image.png'
 import video_icon from './videologo.png'
@@ -25,7 +28,7 @@ class App extends Component
     {
       console.log(localStorage.getItem("RoomNumber"))
       this.setState({room_number : Number(localStorage.getItem("RoomNumber"))})
-      document.getElementById("rid").innerHTML = "Room number: " + localStorage.getItem("RoomNumber")
+      document.getElementById("rid").innerHTML = "Room ID : " + localStorage.getItem("RoomNumber")
       setTimeout(() => {  this.callResp(); }, 500)
       setTimeout(() => {this.getQueueItem();}, 500)
     }
@@ -56,23 +59,26 @@ class App extends Component
   { 
     return(
       <div>
+      <video autoPlay muted loop id="myVideo">
+      <source src={bg} type="video/mp4"/>
+      </video>
       <div id="main">
-      <h1>
-      PartyShare
-      </h1>
-      <h2 id="rid">
+      <img id="logo" width="200" height="115" src={logo} alt="Logo"></img>
+      <h1 id="rid">
       Fetching room...
-      </h2>
+      </h1>
       <div id="action_display">
       </div>
       <div id="queue">
+      <div>
         <h3>
           Queue
         </h3>
       </div>
       </div>
+      </div>
       <div style={{display : "none"}} id="screenwarning">
-      <label>PartyShare requires 1280x800 resolution. Please switch to a device with bigger screen size, or resize the windows if possible.</label>
+      <label id="warn">PartyShare requires 1280x800 resolution. Please switch to a device with bigger screen size, or resize the windows if possible.</label>
       </div>
       </div>
     )
@@ -148,7 +154,13 @@ class App extends Component
     }
     else if(next_item.type == "none")
     {
-      document.getElementById("action_display").innerHTML = "<div id='item'><h3>No action is present in the room queue. Add one!</h3></div>"
+      var no_item_html = 
+      <div id="item">
+      <img width="300" height="300" src={qr} alt="Logo"></img>
+      <h1>Upload your stuff now at <b>partyshare-client.herokuapp.com</b>!</h1>
+      </div>
+      ReactDOM.render(no_item_html,document.getElementById("action_display"))
+      //document.getElementById("action_display").innerHTML = "<div id='item'><h3>No action is present in the room queue. Add one!</h3></div>"
       setTimeout(() => {  this.getQueueItem(); }, 1000);
     }
     else
