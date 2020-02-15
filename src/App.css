@@ -1,5 +1,20 @@
+@font-face {
+  font-family: 'Farray Regular'; /*a name to be used later*/
+  src: url('FARRAY.ttf')
+}
+
+@font-face {
+  font-family: 'Enigmatic'; /*a name to be used later*/
+  src: url('Enigma.TTF')
+}
+
 body{
   background-color: #2b2b2b;
+}
+
+h1
+{
+  font-family: 'Farray Regular';
 }
 
 h1, label, h3, h4{
@@ -22,14 +37,14 @@ div#errors {
 
 img
 {
-  float: left;
+  max-width: 700px;
   margin: 10px;
 }
 
 h2
 {
   color: #707070;
-  text-align: right;
+  font-family: 'Enigmatic';
 }
 
 div#action_display {

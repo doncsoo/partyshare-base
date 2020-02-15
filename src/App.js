@@ -19,21 +19,37 @@ class App extends Component
     this.getQueueItem = this.getQueueItem.bind(this);
   }
 
-  callAPI()
+  getRoomCredentials()
   {
-    fetch('https://partyshare-server.herokuapp.com/new_room', {
+    if(localStorage.getItem("RoomNumber"))
+    {
+      console.log(localStorage.getItem("RoomNumber"))
+      this.setState({room_number : Number(localStorage.getItem("RoomNumber"))})
+      document.getElementById("rid").innerHTML = "Room number: " + localStorage.getItem("RoomNumber")
+      setTimeout(() => {  this.callResp(); }, 500)
+      setTimeout(() => {this.getQueueItem();}, 500)
+    }
+    else this.callAPI()
+  }
+
+  async callAPI()
+  {
+    await fetch('https://partyshare-server.herokuapp.com/new_room', {
       method: 'POST'
     })
       .then(resp => resp.text())
       .then(resp => this.setState({room_number : Number(resp)}))
       .then(setTimeout(() => {  this.callResp(); }, 500))
       .then(setTimeout(() => {this.getQueueItem();}, 500))
+    localStorage.setItem("RoomNumber",this.state.room_number)
+    document.getElementById("rid").innerHTML = "Room number: " + this.state.room_number
   }
 
   componentDidMount()
   {
     window.addEventListener("resize",this.checkDisplaySize)
-    this.callAPI();
+    this.checkDisplaySize();
+    this.getRoomCredentials();
   }
 
   render()
@@ -44,8 +60,8 @@ class App extends Component
       <h1>
       PartyShare
       </h1>
-      <h2>
-      Room number: {this.state.room_number}
+      <h2 id="rid">
+      Fetching room...
       </h2>
       <div id="action_display">
       </div>
@@ -55,8 +71,8 @@ class App extends Component
         </h3>
       </div>
       </div>
-      <div id="screenwarning">
-      <label>The display is too small.</label>
+      <div style={{display : "none"}} id="screenwarning">
+      <label>PartyShare requires 1280x800 resolution. Please switch to a device with bigger screen size, or resize the windows if possible.</label>
       </div>
       </div>
     )
@@ -64,7 +80,7 @@ class App extends Component
 
   checkDisplaySize()
   {
-    if(window.innerWidth < 800 || window.innerHeight < 600)
+    if(window.innerWidth < 1280 || window.innerHeight < 800)
     {
       document.getElementById("main").style.display = "none"
       document.getElementById("screenwarning").style.display = "block"
