@@ -14,12 +14,17 @@
 }
 
 body{
-  /*background-color: #2b2b2b;*/
+  
 }
 
 h1, label, h3, h4{
   color: #ffffff;
   font-family: 'Gotham Book';
+}
+
+h1#rid{
+  padding: 0px;
+  margin: 0px;
 }
 
 #warn
@@ -52,6 +57,7 @@ div#errors {
 img
 {
   max-width: 700px;
+  max-height: 400px;
   margin: 10px;
 }
 
@@ -62,6 +68,7 @@ h2
 }
 
 div#action_display {
+  position: relative;
   margin: auto;
   width: 50%;
   height: auto;
@@ -71,15 +78,18 @@ div#action_display {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  overflow: hidden;
 }
 
 div#queue_entry
 {
   display: flex;
   align-items:center;
+  overflow: hidden;
 }
 
 div#queue {
+  margin: 20px;
   position: absolute;
   right: 100px;
   width: 300px;
@@ -87,7 +97,8 @@ div#queue {
   background-image:url('first.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: cover;
+  overflow: hidden;
 }
 
 button#menu_button {
