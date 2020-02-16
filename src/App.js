@@ -22,12 +22,18 @@ class App extends Component
     this.getQueueItem = this.getQueueItem.bind(this);
   }
 
-  getRoomCredentials()
+  async getRoomCredentials()
   {
     if(localStorage.getItem("RoomNumber"))
     {
-      console.log(localStorage.getItem("RoomNumber"))
       this.setState({room_number : Number(localStorage.getItem("RoomNumber"))})
+      var response = await fetch("https://partyshare-server.herokuapp.com/get_room/" + localStorage.getItem("RoomNumber"))
+         .then(resp => resp.text())
+      if(response != "OK")
+      {
+        this.callAPI()
+        return
+      }
       document.getElementById("rid").innerHTML = "Room ID : " + localStorage.getItem("RoomNumber")
       setTimeout(() => {  this.callResp(); }, 500)
       setTimeout(() => {this.getQueueItem();}, 500)
@@ -45,6 +51,7 @@ class App extends Component
       .then(setTimeout(() => {  this.callResp(); }, 500))
       .then(setTimeout(() => {this.getQueueItem();}, 500))
     localStorage.setItem("RoomNumber",this.state.room_number)
+    document.getElementById("rid").innerHTML = "Room ID : " + this.state.room_number
   }
 
   componentDidMount()
