@@ -34,7 +34,7 @@ class ImageItem extends Component
             <div id="sentby"><h4>Sent by: </h4> {this.props.user}</div>
             <img id="img" src=""></img>
             <br></br>
-            <h1>{this.props.img_name}</h1>
+            <h1>{this.props.desc}</h1>
             </div>
             </div>);
     }

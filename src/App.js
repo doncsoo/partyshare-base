@@ -149,7 +149,7 @@ class App extends Component
     }
     if(next_item.type == "image")
     {
-      ReactDOM.render(<ImageItem user={next_item.user} img_name={next_item.img} continue={this.getQueueItem}/>,document.getElementById("action_display"))
+      ReactDOM.render(<ImageItem user={next_item.user} img_name={next_item.img} desc={next_item.description} continue={this.getQueueItem}/>,document.getElementById("action_display"))
       this.produceQueue();
     }
     else if(next_item.type == "yt-video")
