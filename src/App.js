@@ -18,7 +18,7 @@ class App extends Component
   constructor(props)
   {
     super();
-    this.state = ({room_number : -1})
+    this.state = ({room_number : -1, skipped : false, current_item : "none"})
     this.getQueueItem = this.getQueueItem.bind(this);
   }
 
@@ -75,6 +75,9 @@ class App extends Component
       </h1>
       <div id="action_display">
       </div>
+      <div style={{display: "none"}} id="controls">
+      <button id="other_button" onClick={() => this.skip()}>Skip</button>
+      </div>
       <div id="queue">
       <div>
         <h3>
@@ -130,8 +133,19 @@ class App extends Component
     document.getElementById("queue").innerHTML = queue_html
   }
 
+  skip()
+  {
+    if(this.state.current_item == "image") this.setState({skipped : true})
+    this.getQueueItem()
+  }
+
   async getQueueItem()
   {
+    if(this.state.skipped)
+    {
+      this.setState({skipped : false})
+      return
+    }
     if(this.state.room_number == -1)
     {
       setTimeout(() => {  this.getQueueItem(); }, 500);
@@ -149,21 +163,26 @@ class App extends Component
     }
     if(next_item.type == "image")
     {
+      this.setState({current_item : "image"})
       ReactDOM.render(<ImageItem user={next_item.user} img_name={next_item.img} desc={next_item.description} continue={this.getQueueItem}/>,document.getElementById("action_display"))
+      document.getElementById("controls").style.display = "block"
       this.produceQueue();
     }
     else if(next_item.type == "yt-video")
     {
-      var parent = React.createRef()
+      this.setState({current_item : "yt-video"})
       ReactDOM.render(<YTVideoItem user={next_item.user} vid_id={next_item.id} continue={this.getQueueItem}/>,document.getElementById("action_display"))
+      document.getElementById("controls").style.display = "block"
       this.produceQueue();
     }
     else if(next_item.type == "none")
     {
+      this.setState({current_item : "none"})
+      document.getElementById("controls").style.display = "none"
       var str = 'https://partyshare-client.herokuapp.com/room/?rid='+this.state.room_number;
       var no_item_html = 
       <div id="item">
-      <QRCode value={str} />
+      <QRCode size={256} value={str} />
       <h1>Upload your stuff now at <b>partyshare-client.herokuapp.com</b>!</h1>
       </div>
       ReactDOM.render(no_item_html,document.getElementById("action_display"))

@@ -126,6 +126,9 @@ button#other_button {
     display: inline-block;
     font-size: 16px;
     border-radius: 4px;
+    position: absolute;
+  left: 24%;
+  padding: 10px;
 }
 
 #myVideo {
