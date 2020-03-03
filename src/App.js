@@ -5,6 +5,7 @@ import ImageItem from './imageitem';
 import YTVideoItem from './ytvideoitem';
 import bg from './video/bg_loop.mp4';
 import logo from './partysharelogo.png';
+import howtouse from './howtouse.png';
 import QRCode from 'qrcode.react';
 
 import image_icon from './image.png'
@@ -18,7 +19,7 @@ class App extends Component
   constructor(props)
   {
     super();
-    this.state = ({room_number : -1, skipped : false, current_item : "none"})
+    this.state = ({room_number : -1, skipped : false, current_item : "none", help_active : false})
     this.getQueueItem = this.getQueueItem.bind(this);
   }
 
@@ -73,6 +74,7 @@ class App extends Component
       <h1 id="rid">
       Fetching room...
       </h1>
+      <a onClick={() => this.callHelp()}>How does it work?</a>
       <div id="action_display">
       </div>
       <div style={{display: "none"}} id="controls">
@@ -146,6 +148,11 @@ class App extends Component
       this.setState({skipped : false})
       return
     }
+    if(this.state.help_active == true)
+    {
+      this.setState({help_active : false})
+      return
+    }
     if(this.state.room_number == -1)
     {
       setTimeout(() => {  this.getQueueItem(); }, 500);
@@ -200,6 +207,22 @@ class App extends Component
   {
     console.log("Continuing")
     this.getQueueItem()
+  }
+
+  callHelp()
+  {
+    this.setState({help_active : true})
+    ReactDOM.unmountComponentAtNode(document.getElementById("action_display"))
+    if(document.getElementById("item") != undefined)
+    {
+      document.getElementById("item").remove();
+    }
+    var howto =
+    <div id="item">
+    <img id="help" src={howtouse}></img>
+    </div>
+    ReactDOM.render(howto,document.getElementById("action_display"))
+    setTimeout(() => {  this.getQueueItem(); }, 20000);
   }
 }
 

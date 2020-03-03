@@ -17,7 +17,7 @@ body{
   
 }
 
-h1, label, h3, h4{
+h1, label, h3, h4,a{
   color: #ffffff;
   font-family: 'Gotham Book';
 }
@@ -138,4 +138,11 @@ button#other_button {
   min-width: 100%;
   min-height: 100%;
   z-index: -1;
+}
+
+img#help
+{
+  max-width: 800px;
+  max-height: 600px;
+  margin: 10px;
 }
